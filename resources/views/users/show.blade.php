@@ -3,6 +3,7 @@
 @section('content')
     <div class="row">
         <aside class="col-sm-4">
+            
             {{--　ユーザー情報　--}}
             @include('users.card')
             
@@ -15,8 +16,8 @@
                 @include('microposts.form')
             @endif
             {{-- 投稿一覧 --}}
-            @include('microposts.microposts')       
-                    
+            @include('microposts.microposts')   
+             
         </div>
     </div>
 @endsection

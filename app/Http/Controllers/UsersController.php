@@ -8,7 +8,8 @@ use App\User;
 
 class UsersController extends Controller
 {
-   public function index() {
+    //
+     public function index() {
    //ユーザー一覧をidの降順で取得
     $users = User::orderBy('id','desc')->paginate(10);
     //ユーザー一覧ビューでそれを表示
@@ -75,8 +76,25 @@ class UsersController extends Controller
             'user' => $user,
             'users' => $followers,
         ]);
-    
+        
 }
+  public function favorites($id)
+    {
+        // idの値でユーザを検索して取得
+        $user = User::findOrFail($id);
 
-    
+        // 関係するモデルの件数をロード
+        $user->loadRelationshipCounts();
+
+        // ユーザの一覧をお気に入り一覧を取得
+        $favorites = $user->favorites()->paginate(10);
+
+        // お気に入り一覧ビューでそれらを表示
+        return view('users.favorites', [
+            'user' => $user,
+            'microposts' => $favorites,
+        ]);
+
+
+}
 }
